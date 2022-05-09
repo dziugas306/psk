@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+<h:body>
+    <h2>Update #{treeSpeciesDetailedMyBatis.treeSpecies.id} Tree Species</h2>
+    <h:form>
+        <label>Name</label>
+        <h:inputText value="#{treeSpeciesDetailedMyBatis.treeSpecies.name}" required="true"/>
+        <h:commandButton value="Update tree species" action="#{treeSpeciesDetailedMyBatis.updateTreeSpecies}">
+            <f:param name="treeSpeciesId" value="#{treeSpeciesDetailedMyBatis.treeSpecies.id}" />
+        </h:commandButton>
+    </h:form>
+    <h2>Trees In Tree Species</h2>
+    <ul>
+        <ui:repeat value="#{treeSpeciesDetailedMyBatis.treeSpecies.trees}" var="tree">
+            <li>
+                <h:form>
+                    <h:link value="#{tree.id}. #{tree.name} Price: #{tree.price}" outcome="trees?treeId=#{tree.id}"/>
+                    <h:commandButton value="remove"
+                                     action="#{treeSpeciesDetailedMyBatis.removeTree(tree)}"
+                    >
+                        <f:param name="treeSpeciesId" value="#{treeSpeciesDetailedMyBatis.treeSpecies.id}" />
+                    </h:commandButton>
+                </h:form>
+            </li>
+        </ui:repeat>
+    </ul>
+    <h2>Add Tree</h2>
+    <h:form>
+        <label>Name</label>
+        <h:inputText value="#{treeSpeciesDetailedMyBatis.treeToCreate.name}" required="true"/>
+        <label>Price</label>
+        <h:inputText value="#{treeSpeciesDetailedMyBatis.treeToCreate.price}" p:type="double" required="false"/>
+        <h:commandButton value="Add new tree" action="#{treeSpeciesDetailedMyBatis.createTree}">
+            <f:param name="treeSpeciesId" value="#{treeSpeciesDetailedMyBatis.treeSpecies.id}" />
+        </h:commandButton>
+    </h:form>
+    <br/>
+    <h:link outcome="index" value="Back to main page"/>
+</h:body>
+</html>

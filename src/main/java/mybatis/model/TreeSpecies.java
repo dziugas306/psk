@@ -1,5 +1,8 @@
 package mybatis.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TreeSpecies {
     /**
      *
@@ -65,5 +68,17 @@ public class TreeSpecies {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    // added manually
+
+    private List<Tree> trees = new ArrayList<>();
+
+    public List<Tree> getTrees() {
+        return trees;
+    }
+
+    public void setTrees(List<Tree> trees) {
+        this.trees = trees;
     }
 }

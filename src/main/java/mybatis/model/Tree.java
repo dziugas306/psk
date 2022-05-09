@@ -1,5 +1,8 @@
 package mybatis.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tree {
     /**
      *
@@ -132,4 +135,30 @@ public class Tree {
     public void setTreeSpeciesId(Integer treeSpeciesId) {
         this.treeSpeciesId = treeSpeciesId;
     }
+
+    //added manually
+
+    private TreeSpecies treeSpecies;
+
+    private List<Myorder> orders = new ArrayList<>();
+
+    public List<Myorder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Myorder> orders) {
+        this.orders = orders;
+    }
+
+
+    public TreeSpecies getTreeSpecies() {
+        return treeSpecies;
+    }
+
+    public void setTreeSpecies(TreeSpecies treeSpecies) {
+        this.treeSpecies = treeSpecies;
+    }
+
+
+
 }

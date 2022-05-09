@@ -1,4 +1,4 @@
-package usecases;
+package usecases.jpa;
 
 import entinties.TreeSpecies;
 import lombok.Getter;

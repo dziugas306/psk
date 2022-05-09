@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough" xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head/>
+<h:body>
+    <h2>Trees Species</h2>
+    <ul>
+        <ui:repeat value="#{treeSpeciesMyBatis.allTreeSpecies}" var="treeSpecies">
+            <li>
+                <h:form>
+                    <h:link value="#{treeSpecies.id}. #{treeSpecies.name}" outcome="treeSpecies?treeSpeciesId=#{treeSpecies.id}"/>
+                    <h:commandButton value="remove"
+                                     action="#{treeSpeciesMyBatis.removeTreeSpecies(treeSpecies.id)}"
+                    >
+                    </h:commandButton>
+                </h:form>
+            </li>
+        </ui:repeat>
+    </ul>
+    <h:form>
+        <label>Name</label>
+        <h:inputText value="#{treeSpeciesMyBatis.treeSpeciesToCreate.name}" required="true"/>
+        <h:commandButton value="Add new tree species" action="#{treeSpeciesMyBatis.createTreeSpecies}"/>
+    </h:form>
+    <h2>Orders</h2>
+    <ul>
+        <ui:repeat value="#{ordersMyBatis.allOrders}" var="order">
+            <li>
+                <h:form>
+                    <h:link value="#{order.id}. #{order.date}" outcome="orders?orderId=#{order.id}"/>
+                    <h:commandButton value="remove"
+                                     action="#{ordersMyBatis.removeOrder(order.id)}"
+                    >
+                    </h:commandButton>
+                </h:form>
+            </li>
+        </ui:repeat>
+    </ul>
+    <h:form>
+        <h:commandButton value="Add new order" action="#{ordersMyBatis.createOrder}"/>
+    </h:form>
+</h:body>
+</html>

@@ -9,7 +9,15 @@
     -->
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="DATE" jdbcType="DATE" property="date" />
+    <collection  property="trees" javaType="ArrayList" ofType="mybatis.model.Tree" column="id"
+                 select="selectTreesFromOrders"/>
   </resultMap>
+  <select id="selectTreesFromOrders" resultType="mybatis.model.Tree">
+    SELECT c.id, c.name, c.price
+    FROM public.tree c
+           JOIN public.ordered_trees sc on c.id = sc.tree_id
+    WHERE sc.order_id = #{id,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated
@@ -19,6 +27,14 @@
     delete from PUBLIC.MYORDER
     where ID = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteFromOrderedTrees" parameterType="java.lang.Integer">
+    DELETE FROM PUBLIC.ORDERED_TREES
+    WHERE ORDER_ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteTreeFromOrder" parameterType="java.lang.Integer">
+    DELETE TOP(1) FROM PUBLIC.ORDERED_TREES
+    WHERE tree_id = #{id,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="mybatis.model.Myorder" useGeneratedKeys="true">
     <!--
       WARNING - @mbg.generated
@@ -27,6 +43,11 @@
     -->
     insert into PUBLIC.MYORDER (DATE)
     values (#{date,jdbcType=DATE})
+  </insert>
+
+  <insert id="insertTreeToOrder" parameterType="map">
+    INSERT INTO PUBLIC.ORDERED_TREES
+    VALUES (#{arg0},#{arg1})
   </insert>
   <update id="updateByPrimaryKey" parameterType="mybatis.model.Myorder">
     <!--

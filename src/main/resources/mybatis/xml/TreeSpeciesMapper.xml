@@ -9,7 +9,16 @@
     -->
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <collection property="trees" javaType="ArrayList"
+                ofType="mybatis.model.Tree" column="id"
+                select="selectTreesFromTreeSpecies"/>
   </resultMap>
+  <select id="selectTreesFromTreeSpecies" resultType="mybatis.model.Tree">
+    SELECT t.id, t.name
+    FROM public.tree t
+           JOIN public.tree_species ts on t.tree_species_id = ts.id
+    WHERE ts.id = #{id,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated
@@ -19,6 +28,7 @@
     delete from PUBLIC.TREE_SPECIES
     where ID = #{id,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="mybatis.model.TreeSpecies" useGeneratedKeys="true">
     <!--
       WARNING - @mbg.generated

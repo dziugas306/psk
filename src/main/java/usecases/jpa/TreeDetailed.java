@@ -1,4 +1,4 @@
-package usecases;
+package usecases.jpa;
 
 import entinties.Tree;
 import lombok.Getter;
@@ -33,8 +33,8 @@ public class TreeDetailed implements Serializable {
     }
 
     @Transactional
-    public String updateTree(){
+    public String updateTree() {
         treeDAO.update(tree);
-        return "trees.xhtml?treeId=1faces-redirect=true";
+        return "trees.xhtml?treeId=" + tree.getId() + "faces-redirect=true";
     }
 }

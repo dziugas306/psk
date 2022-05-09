@@ -11,7 +11,16 @@
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="PRICE" jdbcType="DOUBLE" property="price" />
     <result column="TREE_SPECIES_ID" jdbcType="INTEGER" property="treeSpeciesId" />
+    <association property="treeSpecies"
+                 resultMap="mybatis.dao.TreeSpeciesMapper.BaseResultMap"/>
+    <collection javaType="ArrayList" property="orders" ofType="mybatis.model.Myorder" column="id" select="selectOrders"/>
   </resultMap>
+  <select id="selectOrders" resultType="mybatis.model.Myorder">
+    SELECT c.id, c.date
+    FROM public.MYORDER c
+           JOIN public.ordered_trees sc on c.id = sc.order_id
+    WHERE sc.tree_id = #{id,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated
@@ -20,6 +29,10 @@
     -->
     delete from PUBLIC.TREE
     where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByTreeSpeciesId" parameterType="java.lang.Integer">
+    DELETE FROM PUBLIC.TREE
+    WHERE TREE_SPECIES_ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="mybatis.model.Tree" useGeneratedKeys="true">
     <!--

@@ -12,13 +12,13 @@
         <environment id="development">
             <transactionManager type="MANAGED"/>
             <dataSource type="JNDI">
-                <property name="data_source" value="MusicDataSource"/>
+                <property name="data_source" value="TreeShopDataSource"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mybatis.xml/AlbumMapper.xml"/>
-        <mapper resource="mybatis.xml/SongMapper.xml"/>
-        <mapper resource="mybatis.xml/MyorderMapper.xml"/>
+        <mapper resource="mybatis/xml/TreeMapper.xml"/>
+        <mapper resource="mybatis/xml/TreeSpeciesMapper.xml"/>
+        <mapper resource="mybatis/xml/MyorderMapper.xml"/>
     </mappers>
 </configuration>
