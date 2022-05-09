@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+<h:body>
+    <h2>Order nr. #{ordersDetailed.order.id} date: #{ordersDetailed.order.date}</h2>
+    <ul>
+        <ui:repeat value="#{ordersDetailed.order.trees}" var="tree">
+            <li>
+                <h:form>
+                    <h:link value="#{tree.id}. #{tree.name} Price: #{tree.price}" outcome="trees?treeId=#{tree.id}"/>
+                    <h:commandButton value="remove"
+                                     action="#{ordersDetailed.removeTree(tree)}"
+                    >
+                        <f:param name="orderId" value="#{ordersDetailed.order.id}" />
+                    </h:commandButton>
+                </h:form>
+            </li>
+        </ui:repeat>
+    </ul>
+    <h2>Add Tree</h2>
+    <ul>
+        <ui:repeat value="#{ordersDetailed.allTrees}" var="tree">
+            <li>
+                <h:form>
+                    <h:link value="#{tree.id}. #{tree.name} Price: #{tree.price}" outcome="trees?treeId=#{tree.id}"/>
+                    <h:commandButton value="Add"
+                                     action="#{ordersDetailed.addTree(tree)}"
+                    >
+                        <f:param name="orderId" value="#{ordersDetailed.order.id}" />
+                    </h:commandButton>
+                </h:form>
+            </li>
+        </ui:repeat>
+    </ul>
+    <h:link outcome="index" value="Back to main page"/>
+</h:body>
+</html>
